@@ -23,7 +23,7 @@ TcpServer::TcpServer(boost::asio::io_service& service)
 	
 	if (readResponseCodeSettings()) {
          report("Read response code settings success.");
-#if 1
+#if 0
 		 for (const auto& s : mRCSettings) {
 			 cout << " Mapping: " << s.first << " -> " << s.second << endl;
 		 }
