@@ -17,7 +17,7 @@ public:
 	ResponseCodeSettingsProvider(const std::string& username = {}, const std::string& password = {});
 	virtual ~ResponseCodeSettingsProvider();
 
-	static RCSettingsProviderPtr create();
+	static RCSettingsProviderPtr create(const std::string& username = {}, const std::string& password = {});
 	   
 	inline static const std::string defaultUsername() { return "C##Scott"; }
 	inline static const std::string defaultPassword() { return "tiger"; }

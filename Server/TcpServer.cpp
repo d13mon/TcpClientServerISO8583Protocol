@@ -21,8 +21,15 @@ TcpServer::TcpServer(boost::asio::io_service& service)
 	auto seed = std::chrono::system_clock::now().time_since_epoch().count();
 	mRandomizer.seed(static_cast<unsigned>(seed));
 	
-	if (readResponseCodeSettings())
-		report("Read response code settings success.");
+	if (readResponseCodeSettings()) {
+         report("Read response code settings success.");
+#if 1
+		 for (const auto& s : mRCSettings) {
+			 cout << " Mapping: " << s.first << " -> " << s.second << endl;
+		 }
+#endif
+	}
+		
 
 	report("Waiting for connection...");	
 }
@@ -167,13 +174,8 @@ std::string TcpServer::generateResponseCode(const RCList& rcList)
 bool TcpServer::readResponseCodeSettings()
 {
 	try {
-		auto settingsProvider = ResponseCodeSettingsProvider::create();
+		auto settingsProvider = ResponseCodeSettingsProvider::create(/*"<username>", "<password>"*/);
 		mRCSettings = settingsProvider->querySettings();
-#if 0
-		for (const auto& s : mRCSettings) {
-			cout << " Mapping: " << s.first << " -> " << s.second << endl;
-		}
-#endif
 	}
 	catch (const std::exception & ex) {
 		report(ex.what());

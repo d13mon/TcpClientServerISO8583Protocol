@@ -6,7 +6,7 @@ using namespace std;
 using namespace oracle::occi;
 
 ResponseCodeSettingsProvider::ResponseCodeSettingsProvider(const std::string& username, const std::string& password)
-	: OracleDbClient(username, password)
+	: OracleDbClient(username, username == defaultUsername() ? defaultPassword() : password)
 {
 	if(!connect())
 		throw oracle_db_error("Can't connect to database");
@@ -16,9 +16,10 @@ ResponseCodeSettingsProvider::~ResponseCodeSettingsProvider()
 {
 }
 
-RCSettingsProviderPtr ResponseCodeSettingsProvider::create()
+RCSettingsProviderPtr ResponseCodeSettingsProvider::create(const std::string& username, const std::string& password)
 {
-	return RCSettingsProviderPtr(new ResponseCodeSettingsProvider(defaultUsername(), defaultPassword()));
+	return RCSettingsProviderPtr(new ResponseCodeSettingsProvider(
+		username.empty() ? defaultUsername() : username,	password));
 }
 
 SettingsMap ResponseCodeSettingsProvider::querySettings()
