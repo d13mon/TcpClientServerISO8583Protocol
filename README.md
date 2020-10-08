@@ -114,11 +114,11 @@ BUILD
 
 Для решения была использована СУБД Oracle Express Edition(XE) 18c x64.
 
-Настройки расположены в таблице response_code_settings;
+Настройки мэппинга Response Code расположены в таблице response_code_settings.
 
 Подключение к базе данных по дефолту через пользователя C##Scott. Пароль - tiger. Настройки подключения зашиты в код в  TcpServer::readResponseCodeSettings(). Там же можно их поменять.
 
-В Server/response_code_settings.sql полный код создания соединения и таблицы. Выполняется например под sys as sysdba через клиентскую утилиту Oracle Sql*Plus.
+В Server/response_code_settings.sql полный код создания соединения (пользователя, пароля а также всех прав) и заполненной таблицы. Выполняется например под sys as sysdba через клиентскую утилиту Oracle Sql*Plus.
 
 -------------------------------------------------------------
 Параметры запуска клиента (TcpIso8583Client)
